@@ -12,7 +12,7 @@
     if (b === 1) return 'раз'; if (b >= 2 && b <= 4) return 'раза'; return 'раз'; };
 
   const V = D.videos.map(v => Object.assign({}, v, {
-    hay: ((v.t || '') + ' ' + (v.c || '') + ' ' + (v.rubs || []).map(k => NAME[k] || '').join(' ') + ' ' + (v.tp || []).join(' ')).toLowerCase()
+    hay: ((v.t || '') + ' ' + (v.c || '') + ' ' + (v.d || '') + ' ' + (v.rubs || []).map(k => NAME[k] || '').join(' ') + ' ' + (v.tp || []).join(' ')).toLowerCase()
   }));
 
   const inRubric = (v, key) => key === 'podcast'
@@ -127,7 +127,7 @@
     /* режим поиска */
     if (q) {
       flat = pool().filter(v => v.hay.includes(q)).sort((a, b) => b.n - a.n);
-      if (!flat.length) { $('#empty').hidden = false; return; }
+      if (!flat.length) { document.querySelectorAll('.section-head').forEach(h => h.remove()); $('#empty').hidden = false; return; }
       section('ПОИСК: ' + state.q.toUpperCase(), `${flat.length} материалов`, flat);
       return;
     }
@@ -145,7 +145,7 @@
     if (state.rub) {
       flat = pool().filter(v => inRubric(v, state.rub)).sort((a, b) => b.n - a.n);
       const r = RUBRICS.find(x => x.key === state.rub) || {title: '', deck: ''};
-      if (!flat.length) { $('#empty').hidden = false; return; }
+      if (!flat.length) { document.querySelectorAll('.section-head').forEach(h => h.remove()); $('#empty').hidden = false; return; }
       section(r.title, r.deck, flat);
       return;
     }
