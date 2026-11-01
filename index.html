@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>НЕОБЪЯСНИМОЕ — газета видеонаходок с Hacker News</title>
+<meta name="description" content="Что советовали друг другу на Hacker News: ИИ, альтернативная история, конспирология, НЛО, загробная жизнь, полтергейст, чудеса, шаманы, спиритизм.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="topline">
+    <span id="edition">Выпуск № 1</span>
+    <span class="center">газета видеонаходок · составлена из комментариев Hacker News</span>
+    <span class="right" id="today"></span>
+  </div>
+  <h1>НЕОБЪЯСНИМОЕ</h1>
+  <div class="subtitle">
+    <span>ИИ · Альтернативная история · Конспирология · НЛО · Загробная жизнь · Аномальные явления · Полтергейст · Святые и чудеса · Шаманы · Спиритизм</span>
+  </div>
+  <div class="rule-double"></div>
+</header>
+
+<nav class="sections" id="sections"></nav>
+
+<div class="toolbar">
+  <input id="q" type="search" placeholder="Поиск по заголовкам, каналам, рубрикам…  ( / )" autocomplete="off">
+  <button id="foryou" title="Подборка по вашим отметкам (F)">Моя подборка</button>
+  <button id="export" title="Выгрузить газету и отметки в JSON">⤓ JSON</button>
+  <span class="stat" id="statline"></span>
+</div>
+
+<main id="paper">
+  <section id="lead" hidden></section>
+  <div id="body"></div>
+  <div id="empty" hidden>В этом выпуске такого нет. Сбросить фильтры — <b>Esc</b>.</div>
+</main>
+
+<footer class="colophon">
+  <p><b>НЕОБЪЯСНИМОЕ</b> — статическая газета. Источник: комментарии Hacker News через Algolia API (2007 → сегодня).
+     Названия и каналы — YouTube oEmbed, кадры — <i>mqdefault</i> (320×180), скачаны локально.
+     Рекомендация — это ссылка, которую человек оставил в комментарии; газета не ручается за содержание.</p>
+  <p class="keys"><b>/</b> поиск · <b>Esc</b> сброс · <b>j</b>/<b>k</b> листать · <b>o</b> открыть · <b>l</b> в избранное · <b>x</b> вычеркнуть · <b>f</b> моя подборка · <b>?</b> справка</p>
+</footer>
+
+<div id="help" hidden><div class="panel">
+  <h2>Как читать газету</h2>
+  <p>Материалы собраны из комментариев Hacker News: каждый — ссылка на видео, которую один человек
+     оставил другому. Цифра в рамке — сколько раз это видео советовали.</p>
+  <p>Нравится — <b>l</b>, вычеркнуть — <b>x</b>. Отметки живут в localStorage браузера, аккаунт не нужен;
+     «Моя подборка» собирается из них. Кнопка ⤓ JSON отдаёт весь выпуск и ваши отметки файлом — можно скормить агенту.</p>
+  <p class="muted">Ничего не проверено на правдивость. Это не энциклопедия, а след того, что люди находили интересным.</p>
+  <button id="closehelp">Закрыть</button>
+</div></div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
