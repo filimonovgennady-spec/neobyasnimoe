@@ -7,6 +7,9 @@
   const savePrefs = () => localStorage.setItem(LS, JSON.stringify(prefs));
   const $ = s => document.querySelector(s);
   const esc = s => (s || '').replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+  const plural = n => { const a = Math.abs(n) % 100, b = a % 10;
+    if (a > 10 && a < 20) return 'раз';
+    if (b === 1) return 'раз'; if (b >= 2 && b <= 4) return 'раза'; return 'раз'; };
 
   const V = D.videos.map(v => Object.assign({}, v, {
     hay: ((v.t || '') + ' ' + (v.c || '') + ' ' + (v.rubs || []).map(k => NAME[k] || '').join(' ') + ' ' + (v.tp || []).join(' ')).toLowerCase()
@@ -88,7 +91,7 @@
       <h3>${esc(v.t || 'Видео ' + v.id)}</h3>
       ${v.d ? `<div class="what">${esc(v.d)}</div>` : ''}
       <div class="deck">${esc(v.c || '')}</div>
-      <div class="byline">советовали <b>${v.n}</b> ${v.n === 1 ? 'раз' : 'раза'}${other.length ? ' · также: ' + esc(other.join(', ')) : ''}</div>
+      <div class="byline">советовали <b>${v.n}</b> ${plural(v.n)}${other.length ? ' · также: ' + esc(other.join(', ')) : ''}</div>
       ${q ? `<div class="quote">«${esc(q.text.slice(0, 200))}${q.text.length > 200 ? '…' : ''}» <i>— ${esc(q.by)}, ${q.y}</i></div>` : ''}`;
     el.onclick = e => {
       if (e.target.closest('.acts')) return;
@@ -164,6 +167,15 @@
           <div class="shot-wrap">${top.th ? `<img src="data/thumbs/${esc(top.th)}" alt="">` : ''}</div>
         </div>`;
       lead.onclick = () => window.open('https://www.youtube.com/watch?v=' + top.id, '_blank', 'noopener');
+      if (top.d) {
+        const w = document.createElement('div');
+        w.className = 'what';
+        w.style.cssText = 'margin-top:10px;font-size:16px';
+        w.textContent = top.d;
+        lead.querySelector('.stand').after(w);
+      }
+      const idx = vis.indexOf(top);
+      if (idx >= 0) vis.splice(idx, 1);
       lead.style.cursor = 'pointer';
     }
     RUBRICS.forEach(r => {
